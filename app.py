@@ -16,6 +16,30 @@ debug = DebugToolbarExtension(app)
 connect_db(app)
 db.create_all()
 
+if Pet.query.order_by(Pet.name).all() == []:
+    woofy = Pet(
+        name = 'Woofy',
+        species = 'pomchi',
+        age = 2,
+        notes = 'very sweet, likes to play'
+    )
+
+    bolt = Pet(
+        name = 'Bolt',
+        species = 'bulldog',
+        age = 1,
+        notes = 'loves to go on walks'
+    )
+    cesar = Pet(
+        name = 'Cesar',
+        species = 'Lomodo Dragon',
+        age = 2,
+        notes = 'super chill'
+    )
+    pets = [woofy, bolt, cesar]
+    db.session.add(pets)
+    db.session.commit()
+
 @app.route('/')
 def root():
     pets = Pet.query.order_by(Pet.name).all()
