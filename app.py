@@ -37,7 +37,7 @@ if Pet.query.order_by(Pet.name).all() == []:
         notes = 'super chill'
     )
     pets = [woofy, bolt, cesar]
-    db.session.add(pets)
+    db.session.add_all(pets)
     db.session.commit()
 
 @app.route('/')
