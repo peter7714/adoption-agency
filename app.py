@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template
 from flask_debugtoolbar import DebugToolbarExtension 
 from models import db, connect_db, Pet
+from forms import AddPetForm
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///adoption_agency'
@@ -44,3 +45,11 @@ if Pet.query.order_by(Pet.name).all() == []:
 def root():
     pets = Pet.query.order_by(Pet.name).all()
     return render_template('index.html', pets=pets)
+
+@app.route('/add', methods=['GET','POST'])
+def add_pet_form():
+    form = AddPetForm()
+    if form.validate_on_submit():
+        return redirect('/')
+    else:
+        return render_template('add-pet-form.html', form=form)
