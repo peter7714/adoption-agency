@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Add a Pet{% endblock %}
+{% block title %}{{pet.name}}{% endblock %}
 
 {% block content %}
-<h1>New Pet</h1>
+<h1>Edit {{pet.name}}</h1>
 <form method="POST">
     {{form.hidden_tag()}}
     {% for field in form
-        if field.widget.input_type != 'hidden' %}
+        if field.widget.input_type != 'hidden' and field != Name and field != Species %}
     <p>
         {{field.label}}:
         {{field}}
